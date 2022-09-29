@@ -13,11 +13,9 @@ const notAnimal = () => {
 // Else { speciesName: allResidentsAmount}
 function countAnimals(animal) {
   if (!animal) return notAnimal();
-  const obj = {};
   const { specie, sex } = animal;
   // Find species with animal name
   const especiesData = data.species.find((especie) => especie.name === specie);
-  console.log(especiesData)
   // If sex is passed, returns given sex amount of animals
   if (sex !== undefined) {
     const residentsOfSex = especiesData.residents.filter((residente) => residente.sex === sex);
