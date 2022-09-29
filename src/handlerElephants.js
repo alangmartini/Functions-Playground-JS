@@ -28,6 +28,7 @@ const handlerElephants = (param) => {
   }
   const elephants = getElephants();
   if (Object.keys(elephants).includes(param)) {
+    console.log(elephants[param]);
     return elephants[param];
   }
   return computeData(param, elephants);
