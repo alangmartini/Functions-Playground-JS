@@ -23,7 +23,6 @@ function countAnimals(animal) {
   // Else, return all species residents amount.
   }
   return especiesData.residents.length;
-
 }
 
 module.exports = countAnimals;
