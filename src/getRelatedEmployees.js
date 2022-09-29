@@ -1,7 +1,7 @@
 const data = require('../data/zoo_data');
 
 function isManager(id) {
-  // seu código aqui
+  // seu código aquidasdsads
 }
 
 function getRelatedEmployees(managerId) {
