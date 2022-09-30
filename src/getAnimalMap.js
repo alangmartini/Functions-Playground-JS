@@ -24,10 +24,9 @@ function getResidentsOfSpecies(species) {
 function noParam(obj) {
   Object.keys(obj).forEach((zone) => {
     const speciesOfZone = getAnimalsOfAZone(zone);
-    obj[zone] = [];
     speciesOfZone.forEach((spe) => obj[zone].push(spe.name));
   });
-  console.log(obj);
+  return obj;
 }
 
 function sortObj(obj) {
@@ -40,25 +39,33 @@ function sortObj(obj) {
   return obj;
 }
 
-function getAnimalMap(options) {
-  const obj = { NE: [], NW: [], SE: [], SW: [] };
-  if (!options) return noParam(obj);
-  const { sex, sorted, includeNames } = options;
+function insertNames(sex, speData) {
+  const names = {};
+  if (sex === 'male') names[speData.species] = speData.male;
+  if (sex === 'female') names[speData.species] = speData.female;
+  if (!sex) names[speData.species] = speData.all;
+  return names;
+}
+
+function doCoolStuff(obj, sex) {
   Object.keys(obj).forEach((zone) => {
     const speciesOfZone = getAnimalsOfAZone(zone);
     speciesOfZone.forEach((spe) => {
       const speData = getResidentsOfSpecies(spe);
-      const names = {};
-      if (sex === 'male') names[speData.species] = speData.male;
-      if (sex === 'female') names[speData.species] = speData.female;
-      if (!sex) names[speData.species] = speData.all;
-      obj[zone].push(names);
+      obj[zone].push(insertNames(sex, speData));
     });
   });
+}
+function getAnimalMap(options) {
+  const obj = { NE: [], NW: [], SE: [], SW: [] };
+  if (!options) return noParam(obj);
+  const { sex, sorted, includeNames } = options;
+  if (!includeNames) return noParam(obj);
+  if (includeNames) doCoolStuff(obj, sex);
   if (sorted) sortObj(obj);
   return obj;
 }
 
-console.log(sortObj(getAnimalMap()));
+console.log(getAnimalMap({ sex: 'male' }));
 
 module.exports = getAnimalMap;
